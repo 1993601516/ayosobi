@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>admin</title>
+    <div th:replace="~{/include/header::header}"></div>
+    <style>
+        .box{
+            height: 150px;
+            margin-top: 10px;
+            border-radius: 2%;
+            position: relative;
+        }
+        .inner{
+            position: absolute;
+            top: 1px;
+            right: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <header th:replace="/admin/header::header"></header>
+    <div class="layui-body">
+        <div class="content">
+            <div class="container">
+                <div class="card-header">
+                    <h3 class="card-title">首页管理</h3>
+                </div>
+                <div class="row justify-content-around">
+                    <div class="col-4 ">
+                        <div class="box bg-success">
+                            <a th:href="@{https://www.bilibili.com/}">
+                                <h1>记录心情</h1>
+                            </a>
+                            <div class="inner">
+                                <h3>
+                                    <i class=" fa fa-meh-o fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box btn-primary">
+                            <h2>文章共<span>1</span>篇</h2>
+                            <div class="inner">
+                                <h3>
+                                    <i class="fa fa-book fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box btn-info">
+                            <h2>评论共<span>1</span>条</h2>
+                            <div class="inner">
+                                <h3>
+                                    <i class="fa fa-comments-o fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-around">
+                    <div class="col-4">
+                        <div class="box btn-secondary">
+                            <h2>分类共<span>1</span>个</h2>
+                            <div class="inner">
+                                <h3>
+                                    <i class="fa fa-bookmark fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box btn-warning">
+                            <h2>标签共<span>1</span>个</h2>
+                            <div class="inner">
+                                <h3>
+                                    <i class="fa fa-tags fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="box btn-danger">
+                            <h2>事件共<span>1</span>件</h2>
+                            <div class="inner">
+                                <h3>
+                                    <i class="fa fa-star-half-o fa-5x" aria-hidden="true"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="/admin/footer::footer"></footer>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    //JS
+    layui.use(['element', 'layer', 'util'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+
+        //头部事件
+        util.event('lay-header-event', {
+            //左侧菜单事件
+            menuLeft: function(othis){
+                layer.msg('展开左侧菜单的操作', {icon: 0});
+            }
+            ,menuRight: function(){
+                layer.open({
+                    type: 1
+                    ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                    ,area: ['260px', '100%']
+                    ,offset: 'rt' //右上角
+                    ,anim: 5
+                    ,shadeClose: true
+                });
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

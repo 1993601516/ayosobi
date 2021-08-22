@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:fragment="header">
+<div class="layui-header">
+    <div th:if="${session.loginuser!=null}">
+        <div class="layui-logo layui-hide-xs layui-bg-black" th:text="${session.loginuser.username}"></div>
+    </div>
+    <!-- 头部区域（可配合layui 已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+        <!-- 移动端显示 -->
+        <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+            <i class="layui-icon layui-icon-spread-left"></i>
+        </li>
+
+        <li class="layui-nav-item layui-hide-xs"><a href="">首页</a></li>
+        <li class="layui-nav-item layui-hide-xs"><a href="">分类</a></li>
+        <li class="layui-nav-item layui-hide-xs"><a href="">标签</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+            <div th:if="${session.loginuser!=null}">
+            <a href="javascript:;">
+                    <img th:src="@{${session.loginuser.avatarimg_url}}" class="layui-nav-img">
+                    <span th:text="${session.loginuser.realname}"></span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">个人中心</a></dd>
+                <dd><a th:href="@{/admin/logout}">登出</a></dd>
+            </dl>
+            </div>
+            <div th:if="${session.loginuser==null}">
+                <a href="javascript:;">
+                    <img th:src="@{/css/img/avatar/avatar.jpg}" class="layui-nav-img">
+                    <span th:text="零五"></span>
+                </a>
+            </div>
+        </li>
+        <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+            <a href="javascript:;">
+                <i class="layui-icon layui-icon-more-vertical">wo</i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <li class="nav-header">发布模块</li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a th:href="@{/admin/index}">
+                    <i class="nav-icon fa fa-dashboard"></i>
+                    </i>
+                    菜单栏
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a th:href="@{/admin/article}">
+                    <i class="nav-icon fa fa fa-pencil-square-o"></i>
+                    </i>
+                    发布文章
+                </a>
+            </li>
+            <li class="nav-header">管理模块</li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-th" aria-hidden="true">
+                    </i>
+                    博客管理
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    评论管理
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
+                    分类管理
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    标签管理
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    时间轴</a>
+            </li>
+            <li class="nav-header">系统模块</li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-cog fa-spin"></i>
+                    站点设置
+                </a>
+
+            </li>
+            <li class="layui-nav-item ">
+                <a href="javascript:;">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    安全退出
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</header>
+</body>
+</html>

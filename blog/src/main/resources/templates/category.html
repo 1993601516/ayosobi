@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <div th:replace="/include/header::header"></div>
+    <link rel="stylesheet" th:href="@{/css/blogs.css}"/>
+    <title>index</title>
+</head>
+<body class="animate__animated animate__backInUp">
+<div id="container">
+    <!--    导航栏-->
+    <header class="animate__animated animate__backInDown" th:replace="/include/nav::header" >
+    </header>
+    <!-- 博客信息展示 -->
+    <div class="container-fluid" >
+        <!-- 主要内容展示 -->
+        <div class="row justify-content-md-center">
+            <div class="col-11">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 jumbotron box-color-white" >
+                            行1
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 jumbotron box-color-white">
+                            行1
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 jumbotron box-color-white">
+                            行1
+                        </div>
+                    </div>
+                </div>  <!--/container-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 尾部 -->
+<div th:replace="/include/footer::footer"></div>
+</body>
+</html>

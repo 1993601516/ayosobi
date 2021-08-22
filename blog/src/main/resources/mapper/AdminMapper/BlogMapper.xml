@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.adminDao.BlogMapper">
+       <resultMap id="baseMap" type="Blog">
+           <result property="blog_id" column="blog_id"/>
+           <result property="blog_title" column="blog_title"/>
+           <result property="blog_tag_id" column="blog_tag_id"/>
+           <result property="blog_category_id" column="blog_category_id"/>
+           <result property="blog_content" column="blog_content"/>
+           <result property="blog_img" column="blog_img"/>
+           <result property="blog_author" column="blog_author"/>
+           <result property="blog_view" column="blog_view"/>
+           <result property="blog_status" column="blog_status"/>
+           <result property="blog_create" column="blog_create"/>
+           <result property="blog_update" column="blog_update"/>
+           <result property="blog_tag" column="blog_tags"/>
+           <result property="blog_coverImg" column="blog_coverImg"/>
+       </resultMap>
+       <insert id="InsertOne" parameterType="Blog">
+           insert into ayosobi_blog
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="blog_id!=null">
+                    blog_id,
+                </if>
+                <if test="blog_title!=null">
+                    blog_title,
+                </if>
+                <if test="blog_tag_id!=null">
+                    blog_tag_id,
+                </if>
+                <if test="blog_category_id!=null">
+                    blog_category_id,
+                </if>
+                <if test="blog_content!=null">
+                    blog_content,
+                </if>
+                <if test="blog_img!=null">
+                    blog_img,
+                </if>
+                <if test="blog_author!=null">
+                    blog_author,
+                </if>
+                <if test="blog_view!=null">
+                    blog_view,
+                </if>
+               <if test="blog_status!=null">
+                   blog_status,
+               </if>
+                <if test="blog_create!=null">
+                    blog_create,
+                </if>
+                <if test="blog_update!=null">
+                    blog_update,
+                </if>
+                <if test="blog_tag!=null">
+                    blog_tags,
+                </if>
+                <if test="blog_coverImg!=null">
+                   blog_coverImg,
+                </if>
+            </trim>
+            <trim prefix="values(" suffix=")" suffixOverrides=",">
+                <if test="blog_id!=null">
+                    #{blog_id,jdbcType=INTEGER},
+                </if>
+                <if test="blog_title!=null">
+                    #{blog_title,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_tag_id!=null">
+                    #{blog_tag_id,jdbcType=INTEGER},
+                </if>
+                <if test="blog_category_id!=null">
+                    #{blog_category_id,jdbcType=INTEGER},
+                </if>
+                <if test="blog_content!=null">
+                    #{blog_content,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_img!=null">
+                    #{blog_img,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_author!=null">
+                    #{blog_author,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_view!=null">
+                    #{blog_view,jdbcType=INTEGER},
+                </if>
+                <if test="blog_status!=null">
+                    #{blog_status,jdbcType=INTEGER},
+                </if>
+                <if test="blog_create!=null">
+                    #{blog_create,jdbcType=TIMESTAMP},
+                </if>
+                <if test="blog_update!=null">
+                    #{blog_update,jdbcType=TIMESTAMP},
+                </if>
+                <if test="blog_tag!=null">
+                    #{blog_tag,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_coverImg!=null">
+                    #{blog_coverImg,jdbcType=VARCHAR},
+                </if>
+            </trim>
+       </insert>
+        <select id="SelectByAll" resultMap="baseMap">
+            select * from ayosobi_blog;
+        </select>
+        <select id="SelectByPrimarykey" resultMap="baseMap">
+            select * from ayosobi_blog
+            where blog_id = #{blog_id,jdbcType=INTEGER}
+        </select>
+</mapper>

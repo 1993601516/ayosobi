@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <div th:replace="/include/header::header"></div>
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/static/css/index.css"/>
+    <title>index</title>
+    <style>
+       .col-10{
+           height: 500px;
+           margin-bottom: 20px;
+       }
+       .col-3{
+           height: auto !important;
+           height: 100%;
+       }
+       .col-6{
+            position: absolute;
+            left:2%;
+            top: 10%;
+            height: 250px;
+       }
+       .col-6 img{
+           transition: all 1s;
+           border-radius: 1%;
+           height: 100%;
+           width: 100%;
+       }
+       .col-6 img:hover{
+           transform: scale(1.1);
+       }
+       .col-5{
+           position: absolute;
+           top: 10%;
+           right: 10%;
+           left:535px;
+           text-align: left;
+           height: 84%;
+       }
+       .c2{
+           position: absolute;
+           height: 100%;
+       }
+       .align-items-end{
+           position: absolute;
+           bottom: 0;
+           width: 100%;
+       }
+       .sp{
+           display: block;
+           line-height: 32px;
+       }
+    </style>
+</head>
+<body class="animate__animated animate__bounceInDown">
+<div id="container">
+    <!--    导航栏-->
+    <header th:replace="/include/nav::header" >
+    </header>
+    <!-- 博客信息展示 -->
+    <div class="container-fluid" >
+        <!-- 主要内容展示 -->
+        <div class="row justify-content-md-between">
+            <div class="col-9">
+                <div class="container" th:each="blogs:${blogs}">
+                    <div class="row">
+                        <div class="col-12 jumbotron box-color-white" >
+                                <!-- 文章内部-->
+                                <!--左边图片-->
+                                <div  class="col-6">
+                                    <a>
+                                        <img th:src="@{${blogs.getBlog_coverImg()}}" width="100px" height="60px"/>
+                                    </a>
+                                </div>
+                                <!--右边区域-->
+                                <div class="col-5">
+                                    <div class="container c2">
+                                        <div class="align-items-start">
+                                            <input id="blog_id" type="hidden" th:text="${blogs.blog_id}">
+                                            <h1><a  th:text="${blogs.blog_title}"></a></h1>
+                                            <h4>这次暴雪千年难遇</h4>
+                                        </div>
+                                        <div class="align-items-center">
+                                            好
+                                        </div>
+                                        <div class="row align-items-end">
+                                            <div class="col" style="display: inline">
+                                                <!--头像和名字-->
+                                                <img  th:src="@{${avatars[blogsStat.index]}}" style="width: 32px;height: 32px;border-radius: 45%">
+                                                <span th:text="${blogs.blog_author}"></span>
+                                            </div>
+                                            <div class="col sp">
+                                                <!--发布时间-->
+                                                <span th:text="${#dates.format(blogs.blog_create,'yyyy-MM-dd')}"></span>
+                                            </div>
+                                            <div class="col sp">
+                                                <i class="fa fa-bookmark fa-1x" aria-hidden="true"></i>
+                                                <span>读书生活</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 功能性展示 -->
+            <div class="col-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10 jumbotron box-color-white">
+                            你好
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-10 jumbotron box-color-white">
+                            你好
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 尾部 -->
+<div th:replace="/include/footer::footer"></div>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.adminDao.LoginMapper">
+    <resultMap id="baseMap" type="loginuser">
+       <result property="id" column="id"/>
+       <result property="username" column="username"/>
+       <result property="password" column="password"/>
+       <result property="realname" column="realname"/>
+       <result property="email" column="email"/>
+       <result property="login_time" column="login_time"/>
+       <result property="avatarimg_url" column="avatarimg_url"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="baseMap">
+        select * from aoyosobi_user;
+    </select>
+
+    <select id="queryByname" resultMap="baseMap">
+        select * from aoyosobi_user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="queryByrealname" resultMap="baseMap">
+        select * from aoyosobi_user where realname=#{realname,jdbcType=VARCHAR}
+    </select>
+</mapper>

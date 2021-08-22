@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="footer" th:fragment="footer">
+    <div id="f-background">
+    <!-- 内容区域 -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3" >
+                <dl>
+                    <img th:src="@{/css/img/blog/erwei.png}" width="100px" height="100px" />
+                </dl>
+            </div>
+            <div class="col-3">
+                <dl>
+                    <dd class="dheader">友情链接</dd>
+                    <dd><a href="http://bs4.vx.link/index.html?tmpui_page=/pages/layout">Bootstarp4</a></dd>
+                    <dd><a href="https://webgradients.com/">CSS样式</a></dd>
+                    <dd><a href="https://www.iconfont.cn/plus">ICON</a></dd>
+                </dl>
+            </div>
+            <div class="col-3">
+                <dl>
+                    <dd class="dheader">联系我</dd>
+                    <dd>QQ:1993601516</dd>
+                    <dd>Email:1993601516@qq.com</dd>
+                    <dd>地址：地球</dd>
+                </dl>
+            </div>
+            <div class="col-3">
+                <dl>
+                    <dd class="dheader">我的博客</dd>
+                    <dd>写这个首页写了一下午,第一次写不仅很多都不会</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- 分割线未完 -->
+    <div id="partition"></div>
+    <!-- 页脚区域 -->
+    <div id="footer_view">
+        <span >Copyright@ 2021-2022 personalBlog</span>
+    </div>
+    </div>
+</div>
+</body>
+</html>

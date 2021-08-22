@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <div th:replace="/include/header::header"></div>
+    <link th:href="@{/css/blogs.css}" rel="stylesheet"/>
+</head>
+<style>
+    .col-10{
+        height: 400px;
+    }
+</style>
+<body>
+<div id="container">
+<!--导航栏-->
+    <header th:replace="/include/nav::header">
+    </header>
+<!--内容区域-->
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-10 jumbotron box-color-white">
+                你好
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-10 jumbotron box-color-white">
+                你好
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-10 jumbotron box-color-white">
+                你好
+            </div>
+        </div>
+    </div>
+</div>
+<!--页脚-->
+<div th:replace="/include/footer::footer"></div>
+</body>
+</html>

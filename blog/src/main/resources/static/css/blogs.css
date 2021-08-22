@@ -1,0 +1,90 @@
+html,
+body {
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: white;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+header{
+    background:url("img/blog/background.jpg") no-repeat;
+    background-size: 100% 50%;
+    background-attachment: fixed;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+#myself {
+    height: 310px;
+    position: relative;
+}
+#avatar{
+    position: absolute;
+    top:25%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+#avatar_image{
+    border:solid rgb(99, 122, 123) 1.5px;
+    transition: all 1s;
+}
+#avatar_image:hover{
+    transform: rotate(360deg);
+}
+#sentence{
+    position:absolute;
+    top:45%;
+    left: 51%;
+    transform: translate(-50%,-50%);
+    font-family: "华文琥珀";
+    font-size: 25px;
+    color:#37ecba;
+}
+/* 页脚 */
+#footer{
+    background-color: rgba(199, 240, 241, 0.9);
+    margin-bottom: 0%;
+    height: 150px;
+    clear:both;
+}
+#container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto 20px;/*margin-bottom的负值等于footer高度*/
+}
+.col-3{
+    height: 150px;
+    text-align: center;
+}
+#footer_view{
+    border-top: solid rgb(195, 189, 189) 1px;
+    background-color: rgba(199, 240, 241, 0.9);
+    text-align: center;
+    height: 80px;
+    position: relative;
+}
+#footer_view span{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.dheader{
+    color:#06e09f;
+}
+dl dd a{
+    color: gray;
+}
+dl{
+    margin-top: 20px;
+}
+.col-12{
+   border-radius: 10px;
+   background-color: white;
+   margin-top:10px;
+   margin-bottom: 10px;
+   height: 300px;
+}

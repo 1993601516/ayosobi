@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.adminDao.CategoryMapper">
+    <sql id="sqlList">
+        category_id,category_sort,category_create,category_name
+    </sql>
+    <select id="SelectOneByName" resultType="Category">
+        select
+        <include refid="sqlList"></include>
+        from aoyosobi_category
+        where category_name=#{category_name,jdbcType=VARCHAR}
+    </select>
+</mapper>
