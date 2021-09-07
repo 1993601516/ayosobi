@@ -6,8 +6,23 @@
     <link th:href="@{/css/blogs.css}" rel="stylesheet"/>
 </head>
 <style>
-    .col-10{
-        height: 400px;
+    .col-12{
+        box-shadow: #0a001f;
+        position: relative;
+        height: auto!important;
+        background: white;
+    }
+    .headding{
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        left: 15px;
+    }
+    .col{
+        margin-top:15px;
+    }
+    h5{
+        font-weight: bold;
     }
 </style>
 <body>
@@ -16,25 +31,92 @@
     <header th:replace="/include/nav::header">
     </header>
 <!--内容区域-->
-    <div class="container-fluid">
-        <div class="row justify-content-md-center">
-            <div class="col-10 jumbotron box-color-white">
-                你好
+    <div class="container card justify-content-center " style="background: #f4f8f6">
+        <div class="row card-header justify-content-center">
+            <div class="col-12 jumbotron shadow">
+                <div class="row headding">
+                       <!--头像-->
+                    <div class="col-5" style="display: block;line-height: 32px;">
+                        <img th:src="@{${avatar}}" class="rounded-circle" style="width: 32px;height: 32px"/>
+                        <span th:text="${blog.blog_author}"></span>
+                        &nbsp; &nbsp;
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                        <span th:text="${#dates.format(blog.blog_create,'yyyy-MM-dd')}"></span>
+                        &nbsp; &nbsp;
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <span th:text="${blog.blog_view}"></span>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <!--主要内容-->
+                    <input type="hidden" id="blogId" th:value="${blog.blog_id}"/>
+                    <h1 style="text-align: center" th:utext="${blog.blog_title}" class="typo-h1">你骄傲的飞远</h1>
+                    <p th:utext="${blog.blog_content}" class="typo-p">你骄傲的飞远，我栖息的夏天，停不住的想念</p>
+                </div>
             </div>
         </div>
-        <div class="row justify-content-md-center">
-            <div class="col-10 jumbotron box-color-white">
-                你好
+        <div class="card-body">
+            <div class="row justify-content-md-center">
+                <div class="col-12 jumbotron box-color-white shadow">
+                    <span>评论</span>
+                    <!--评论-->
+                    <div th:each="comments:${comments}">
+                        <hr>
+                        <div class="media">
+                            <img class="mr-3 rounded-circle"  th:src="@{${comments.comment_avatar}}" style="width: 32px;height: 32px"/>
+                            <div class="media-body">
+                                <h5 class="mt-0" th:text="${comments.comment_nickname}"></h5>
+                                <div>
+                                    <!--隐藏commid-->
+                                    <input type="hidden" th:value="${comments.comment_id}">
+                                    <span th:text="${comments.comment_body}"></span>&nbsp;
+                                    <span th:text="${#dates.format(comments.createtime,'yyyy-MM-dd')}">2021-08-31</span>
+                                    <a href="javascript:void(0)" onclick="replyComment(this)" class="reply">回复</a>
+                                </div>
+                                <div class="media mt-4" th:each="replyList:${replyLists[commentsStat.index]}">
+                                    <img class=" mr-3 rounded-circle" th:src="@{${replyList.reply_avatar}}" style="width: 32px;height: 32px"/>
+                                    <div class="media-body">
+                                        <h5 class="mt-0" th:text="${replyList.reply_nickname}"></h5>
+                                        <div>
+                                            <input type="hidden" th:value="${comments.comment_id}">
+                                            <span th:text="${replyList.reply_body}"></span>
+                                            &nbsp;
+                                            <span th:text="${#dates.format(replyList.reply_create,'yyyy-MM-dd')}"></span>
+                                            <a href="javascript:void(0)" onclick="replyComment(this)">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-10 jumbotron box-color-white">
-                你好
+            <div class="row justify-content-md-center" style="min-height: auto">
+                <div class="col-12 jumbotron box-color-white shadow">
+                    <!--回复区域-->
+                    <div class="form-group">
+                        <textarea class="form-control"id="replyBody"   style="display: block;width: 100%;height: 200px" placeholder="写评论信息，都可以写，随便写。"></textarea>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" id="replyEmail" class="form-control" placeholder="QQ或邮箱"/>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="replyNickname"  class="form-control" placeholder="请输入昵称"/>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success" id="replyBtn"><i class="fa fa-hand-lizard-o" aria-hidden="true"></i>发布评论</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!--页脚-->
 <div th:replace="/include/footer::footer"></div>
+<script th:src="@{/js/blogs.js}"></script>
+<script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
 </body>
 </html>

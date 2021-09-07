@@ -1,11 +1,16 @@
 package cn.jiawei.blog.service.blogServiceImpl;
 
 import cn.jiawei.blog.dao.adminDao.BlogMapper;
+import cn.jiawei.blog.dao.adminDao.LoginMapper;
 import cn.jiawei.blog.pojo.Blog;
+import cn.jiawei.blog.pojo.LoginUser;
 import cn.jiawei.blog.pojo.Tags;
 import cn.jiawei.blog.service.blogService.BlogService;
+import cn.jiawei.blog.service.blogService.LoginUserService;
 import cn.jiawei.blog.service.blogService.TagsService;
 import cn.jiawei.blog.unitl.CurrentUser;
+import cn.jiawei.blog.unitl.mdToHtml;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +24,8 @@ public class BlogServiceImpl implements BlogService {
     BlogMapper blogMapper;
     @Autowired
     TagsService tagsService;
+    @Autowired
+    LoginMapper loginMapper;
     @Override
     @Transactional
     public String InsertInto(Blog blog) {
@@ -49,9 +56,23 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> SelectByAll() {
      return blogMapper.SelectByAll();
     }
-
+    /*查询单个博客并修改状态*/
     @Override
     public Blog SelectByPrimarykey(String blog_id) {
-      return blogMapper.SelectByPrimarykey(Integer.parseInt(blog_id));
+        Blog blogVo = new Blog();
+        Blog blog = blogMapper.SelectByPrimarykey(Integer.parseInt(blog_id));
+        blog.setBlog_view(blog.getBlog_view()+1);
+        /*修改阅读量*/
+        blogMapper.UpdateByprimaryKey(blog.getBlog_view(), blog.getBlog_id());
+        BeanUtils.copyProperties(blog, blogVo);
+        /*转换md成html*/
+        blogVo.setBlog_content(mdToHtml.mdToHtml(blogVo.getBlog_content()));
+        return  blogVo;
+    }
+    /*通过博客作者查找头像*/
+    @Override
+    public String SelectByPrimaryKey(Blog blog) {
+        LoginUser loginUser = loginMapper.queryByrealname(blog.getBlog_author());
+        return loginUser.getAvatarimg_url();
     }
 }

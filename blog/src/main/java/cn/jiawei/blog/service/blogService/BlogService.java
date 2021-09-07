@@ -8,4 +8,5 @@ public interface BlogService {
     String InsertInto(Blog blog);
     List<Blog> SelectByAll();
     Blog SelectByPrimarykey(String blog_id);
+    String SelectByPrimaryKey(Blog blog);
 }

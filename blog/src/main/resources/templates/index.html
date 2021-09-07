@@ -70,7 +70,7 @@
                                 <!-- 文章内部-->
                                 <!--左边图片-->
                                 <div  class="col-6">
-                                    <a>
+                                    <a th:href="@{'/blog/'+${blogs.blog_id}}">
                                         <img th:src="@{${blogs.getBlog_coverImg()}}" width="100px" height="60px"/>
                                     </a>
                                 </div>
@@ -78,8 +78,7 @@
                                 <div class="col-5">
                                     <div class="container c2">
                                         <div class="align-items-start">
-                                            <input id="blog_id" type="hidden" th:text="${blogs.blog_id}">
-                                            <h1><a  th:text="${blogs.blog_title}"></a></h1>
+                                            <h1><a  th:href="@{'/blog/'+${blogs.blog_id}}" th:text="${blogs.blog_title}"></a></h1>
                                             <h4>这次暴雪千年难遇</h4>
                                         </div>
                                         <div class="align-items-center">

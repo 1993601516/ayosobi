@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.blogDao.ReplyMapper">
+    <resultMap id="baseMap" type="Reply">
+        <result property="reply_id" column="reply_id"/>
+        <result property="comment_id" column="comment_id"/>
+        <result property="reply_create" column="reply_create"/>
+        <result property="reply_body" column="reply_body"/>
+        <result property="reply_avatar" column="reply_avatar"/>
+        <result property="reply_nickname" column="reply_nickname"/>
+        <result property="reply_email" column="reply_email"/>
+    </resultMap>
+
+    <select id="selectByListReply" resultMap="baseMap">
+        select * from ayosobi_reply where comment_id = #{comment_id,jdbcType=INTEGER}
+    </select>
+    <insert id="InsertOneReply" parameterType="Reply">
+       insert into ayosobi_reply
+           <trim prefix="(" suffix=")" suffixOverrides=",">
+               <if test="comment_id!=null">
+                   comment_id,
+               </if>
+               <if test="reply_create!=null">
+                   reply_create,
+               </if>
+               <if test="reply_body!=null">
+                   reply_body,
+               </if>
+               <if test="reply_avatar!=null">
+                   reply_avatar,
+               </if>
+               <if test="reply_nickname!=null">
+                   reply_nickname,
+               </if>
+                <if test="reply_email!=null">
+                    reply_email,
+                </if>
+           </trim>
+            <trim prefix="values(" suffix=")" suffixOverrides=",">
+                <if test="comment_id!=null">
+                    #{comment_id,jdbcType=INTEGER},
+                </if>
+                <if test="reply_create!=null">
+                    #{reply_create,jdbcType=TIMESTAMP},
+                </if>
+                <if test="reply_body!=null">
+                    #{reply_body,jdbcType=VARCHAR},
+                </if>
+                <if test="reply_avatar!=null">
+                    #{reply_avatar,jdbcType=VARCHAR},
+                </if>
+                <if test="reply_nickname!=null">
+                    #{reply_nickname,jdbcType=VARCHAR},
+                </if>
+                <if test="reply_email!=null">
+                    #{reply_email,jdbcType=VARCHAR}
+                </if>
+            </trim>
+    </insert>
+</mapper>

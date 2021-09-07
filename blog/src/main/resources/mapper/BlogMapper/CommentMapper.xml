@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.blogDao.CommentMapper">
+     <resultMap id="baseMap" type="Comment">
+         <result property="comment_id" column="comment_id"/>
+         <result property="blog_id" column="blog_id"/>
+         <result property="comment_body" column="comment_body"/>
+         <result property="createtime" column="comment_createtime"/>
+         <result property="comment_nickname" column="comment_nickname"/>
+         <result property="comment_email" column="comment_email"/>
+         <result property="comment_avatar" column="comment_avatar"/>
+     </resultMap>
+    <sql id="sqlList">
+    comment_id,blog_id,comment_body,comment_createtime,comment_nickname,comment_email,comment_avatar
+    </sql>
+    <insert id="InsertOneComment" parameterType="Comment">
+        insert into ayosobi_comment(blog_id,comment_body,comment_createtime,comment_nickname,comment_email,comment_avatar)
+        values(#{blog_id,jdbcType=INTEGER},#{comment_body,jdbcType=VARCHAR},#{createtime,jdbcType=TIMESTAMP},#{comment_nickname,jdbcType=VARCHAR},#{comment_email,jdbcType=VARCHAR},#{comment_avatar,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="SelectByListComment" resultMap="baseMap">
+        select <include refid="sqlList"/> from ayosobi_comment
+        where blog_id = #{blog_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="SelectByPrimaryKey" resultMap="baseMap">
+        select <include refid="sqlList"/> from ayosobi_comment
+        where comment_id = #{comment_id,jdbcType=INTEGER}
+    </select>
+</mapper>
