@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    ul li a{
+        text-decoration: none;
+    }
+</style>
 <body>
 <header th:fragment="header">
 <div class="layui-header">
@@ -68,7 +73,7 @@
             </li>
             <li class="nav-header">管理模块</li>
             <li class="layui-nav-item">
-                <a href="javascript:;">
+                <a th:href="@{/admin/blog}">
                     <i class="fa fa-th" aria-hidden="true">
                     </i>
                     博客管理

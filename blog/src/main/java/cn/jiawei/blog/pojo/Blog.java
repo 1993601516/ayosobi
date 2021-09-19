@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Blog {
     private int blog_id;
-    private int blog_tag_id;
+    private String blog_tag_id;
     private int blog_category_id;
     private int blog_view;
     private int blog_status;
@@ -41,11 +41,11 @@ public class Blog {
         this.blog_id = blog_id;
     }
 
-    public int getBlog_tag_id() {
+    public String getBlog_tag_id() {
         return blog_tag_id;
     }
 
-    public void setBlog_tag_id(int blog_tag_id) {
+    public void setBlog_tag_id(String blog_tag_id) {
         this.blog_tag_id = blog_tag_id;
     }
 
@@ -124,7 +124,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(int blog_id, int blog_tag_id, int blog_category_id, int blog_view, int blog_status, String blog_title, String blog_content, String blog_img, String blog_author, Date blog_create, Date blog_update, String blog_tag,String blog_coverImg) {
+    public Blog(int blog_id, String blog_tag_id, int blog_category_id, int blog_view, int blog_status, String blog_title, String blog_content, String blog_img, String blog_author, Date blog_create, Date blog_update, String blog_tag,String blog_coverImg) {
         this.blog_id = blog_id;
         this.blog_tag_id = blog_tag_id;
         this.blog_category_id = blog_category_id;

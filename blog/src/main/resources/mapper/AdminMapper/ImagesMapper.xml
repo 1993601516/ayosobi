@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiawei.blog.dao.adminDao.ImagesMapper">
+    <resultMap id="baseMap" type="Images">
+        <result property="img_id" column="images_id"/>
+        <result property="img_url" column="img_url"/>
+    </resultMap>
+    <select id="SelectCount" resultType="INTEGER">
+        select count(*) from ayosobi_images
+    </select>
+    <select id="selectByPrimaryKey" resultMap="baseMap">
+        select * from ayosobi_images
+        where images_id =#{img_id,jdbcType=INTEGER}
+    </select>
+    <insert id="InsertOneImg">
+        insert into ayosobi_images(img_url)
+        values (#{img_url,jdbcType=VARCHAR})
+    </insert>
+</mapper>

@@ -7,7 +7,6 @@ public class Tags {
     private String tag_name;
     private int tag_sort;
     private Date tag_create;
-
     public int getTag_id() {
         return tag_id;
     }

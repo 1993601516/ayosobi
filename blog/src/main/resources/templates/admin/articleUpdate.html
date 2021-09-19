@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>article</title>
+    <div th:replace="~{/include/header::header}"></div>
+    <script src="/static/md/editormd.min.js" th:src="@{/md/editormd.min.js}" ></script>
+    <link rel="stylesheet" href="/static/md/css/editormd.min.css" th:href="@{/md/css/editormd.min.css}">
+</head>
+<style>
+    .container-fluid{
+        padding-bottom: 44px;
+        box-sizing: border-box;
+    }
+</style>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <header th:replace="/admin/header::header"></header>
+    <div class="layui-body">
+        <div class="container-fluid">
+            <div class="card card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">发布文章</h3>
+                </div>
+                <div class="card-body">
+                    <form onclick="return false">
+                        <div class="form-group justi fy-content-around row" style="display: flex">
+                            <!--blogid-->
+                            <input type="hidden" id="blogId" th:value="${blog.blog_id}">
+                            <!--文章标题-->
+                            <input class="col-sm-6 form-control" id="title" placeholder="文章标题" th:value="${blog.blog_title}">
+                            <!--可以设置多个标签以','号隔开。-->
+                            <!--标签-->
+
+                            <input class="col-sm-6 form-control" id="tag" th:value="${blog.blog_tag}">
+                        </div>
+                        <div class="form-group justi fy-content-around row" style="display: flex">
+                            <!--目前没什么用-->
+                            <input type="text" id="imgUrl" placeholder="随机封面" class="form-control col-sm-6" th:value="${blog.blog_img}">
+                            <select id="category"  class="form-control col-sm-6">
+                                <option th:value="${category.category_name}" th:text="${category.category_name}" selected></option>
+                                <option th:each="categorys:${categories}" th:value="${categorys.category_name}" th:text="${categorys.category_name}"></option>
+                            </select>
+                        </div>
+                        <!--引入markdown-->
+                        <div class="form-group" id="md-content" style=" z-index: 1 !important;display: flex">
+                            <textarea name="content" id="content"  style="display:none;" th:text="${blog.blog_content}"></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <button  id="publish" class="btn btn-info" style="float: right;margin-right: 8px">发布</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--模态框**封面信息-->
+    <!-- Modal -->
+    <div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">封面信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form onclick="return false">
+                        <!--显示图片-->
+                        <div class="form-group">
+                            <th:block>
+                                <img id="PictureCover" th:src="@{${blog.blog_coverImg}}" style="width: 60px;height: 60px">
+                            </th:block>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" id="randomImg">随机封面</button>
+                        </div>
+                    </form>
+                    <!--文件上传-->
+                    <form  enctype="multipart/form-data" id="uploadForm">
+                        <input type="file" id="file" name="file" accept="image/*">
+                        <button class="btn btn-warning" id="fileBtn" type="button" >上传</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="saveButton" data-dismiss="modal">保存</button>
+                    <button type="button" id="drafts" class="btn btn-primary">草稿</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer  th:replace="/admin/footer::footer"></footer>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/article.js}"></script>
+<script th:src="@{/js/rightInfo.js}"></script>
+<script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/plugs/jQuery-Tags-Input-master/src/jquery.tagsinput.js}"></script>
+<script th:src="@{/js/tags.js}"></script>
+</body>
+</html>

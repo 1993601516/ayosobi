@@ -69,7 +69,7 @@
                     #{blog_title,jdbcType=VARCHAR},
                 </if>
                 <if test="blog_tag_id!=null">
-                    #{blog_tag_id,jdbcType=INTEGER},
+                    #{blog_tag_id,jdbcType=VARCHAR},
                 </if>
                 <if test="blog_category_id!=null">
                     #{blog_category_id,jdbcType=INTEGER},
@@ -112,6 +112,64 @@
         </select>
 
         <update id="UpdateByprimaryKey">
-            update ayosobi_blog set blog_view = #{blog_view,jdbcType=INTEGER} where blog_id = #{blog_id,jdbcType=INTEGER}
+            update ayosobi_blog set blog_view = #{blog_view,jdbcType=INTEGER},blog_update = #{blog_update,jdbcType=TIMESTAMP} where blog_id = #{blog_id,jdbcType=INTEGER}
+        </update>
+        <select id="blogCount" resultType="INTEGER">
+            select count(*) from ayosobi_blog
+        </select>
+        <select id="selectListBlogByTagName" resultMap="baseMap">
+            select * from ayosobi_blog where blog_tags like '%' #{tag_name,jdbcType=VARCHAR} '%'
+        </select>
+        <select id="selctListBlogByCategoryId" resultMap="baseMap">
+            select * from ayosobi_blog where blog_category_id = #{category_id,jdbcType=INTEGER}
+        </select>
+
+        <!--分页查询-->
+        <select id="selectBlogsLimit" resultMap="baseMap">
+            select * from ayosobi_blog limit #{start,jdbcType=INTEGER},#{pagecount,jdbcType=INTEGER}
+        </select>
+
+        <!--update-->
+        <update id="BlogUpdateByPrimaryKey">
+            update ayosobi_blog set
+            <trim suffixOverrides=",">
+                <if test="blog_title!=null">
+                    blog_title=#{blog_title,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_tag_id!=null">
+                    blog_tag_id=#{blog_tag_id,jdbcType=INTEGER},
+                </if>
+                <if test="blog_category_id!=null">
+                    blog_category_id=#{blog_category_id,jdbcType=INTEGER},
+                </if>
+                <if test="blog_content!=null">
+                    blog_content=#{blog_content,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_img!=null">
+                    blog_img=#{blog_img,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_author!=null">
+                    blog_author=#{blog_author,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_view!=null">
+                    blog_view=#{blog_view,jdbcType=INTEGER},
+                </if>
+                <if test="blog_status!=null">
+                    blog_status=#{blog_status,jdbcType=INTEGER},
+                </if>
+                <if test="blog_create!=null">
+                    blog_create=#{blog_create,jdbcType=TIMESTAMP},
+                </if>
+                <if test="blog_update!=null">
+                    blog_update=#{blog_update,jdbcType=TIMESTAMP},
+                </if>
+                <if test="blog_tag!=null">
+                    blog_tags=#{blog_tag,jdbcType=VARCHAR},
+                </if>
+                <if test="blog_coverImg!=null">
+                    blog_coverImg=#{blog_coverImg,jdbcType=VARCHAR}
+                </if>
+            </trim>
+            where  blog_id = #{blog_id,jdbcType=INTEGER}
         </update>
 </mapper>

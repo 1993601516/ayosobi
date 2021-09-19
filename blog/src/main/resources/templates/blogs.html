@@ -26,12 +26,12 @@
     }
 </style>
 <body>
-<div id="container">
+<div id="container" class="animate__animated animate__bounceInDown">
 <!--导航栏-->
     <header th:replace="/include/nav::header">
     </header>
 <!--内容区域-->
-    <div class="container card justify-content-center " style="background: #f4f8f6">
+    <div class="container card justify-content-center" style="background: rgba(255,255,255,0.3)">
         <div class="row card-header justify-content-center">
             <div class="col-12 jumbotron shadow">
                 <div class="row headding">
@@ -118,5 +118,7 @@
 <div th:replace="/include/footer::footer"></div>
 <script th:src="@{/js/blogs.js}"></script>
 <script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/js/streamters.js}"></script>
+<script th:src="@{/js/random.js}"></script>
 </body>
 </html>

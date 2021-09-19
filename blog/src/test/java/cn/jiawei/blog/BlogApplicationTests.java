@@ -6,26 +6,22 @@ import cn.jiawei.blog.dao.blogDao.ReplyMapper;
 import cn.jiawei.blog.pojo.Blog;
 import cn.jiawei.blog.pojo.Comment;
 import cn.jiawei.blog.pojo.Reply;
+import cn.jiawei.blog.unitl.Page;
+import cn.jiawei.blog.unitl.PaginationUntil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 class BlogApplicationTests {
     @Autowired
-    ReplyMapper replyMapper;
+    BlogMapper blogMapper;
     @Test
     void contextLoads() throws UnsupportedEncodingException {
-        Reply reply = new Reply();
-        reply.setComment_id(1);
-        reply.setReply_body("真好");
-        reply.setReply_create(new Date());
-        reply.setReply_nickname("刘华强");
-        reply.setReply_avatar("/css/img/avatar/avatar.jpg");
-        replyMapper.InsertOneReply(reply);
-    }
+}
 
 }

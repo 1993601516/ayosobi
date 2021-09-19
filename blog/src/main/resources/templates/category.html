@@ -2,44 +2,268 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>标签页</title>
     <div th:replace="/include/header::header"></div>
-    <link rel="stylesheet" th:href="@{/css/blogs.css}"/>
-    <title>index</title>
+    <link rel="stylesheet" th:href="@{/css/category.css}" href="/static/css/index.css"/>
+    <style>
+        #container{
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto 20px;/*margin-bottom的负值等于footer高度*/
+        }
+        .container{
+            height: 500px;
+            height: auto!important;
+            margin-top: 20px;
+        }
+        .col-md-8{
+            height: 800px;
+            height: auto!important;
+        }
+        .col-md-3{
+            height: 800px;
+            height: auto!important;
+        }
+        .col-md-10{
+            display: flex;
+            align-items: center;
+            height: 200px;
+            background: white;
+            box-shadow: 2px 2px 5px gainsboro;
+            border-radius: 5px;
+            margin-top: 40px;
+        }
+        .imgs{
+            width: 260px;
+            height: 160px;
+            margin-left: 10px;
+            border-radius: 15px;
+        }
+        .imgs img{
+            width: 250px;
+            height: 150px;
+            border-radius: 5px;
+            transition: all 1s;
+        }
+        .imgs img:hover{
+            transform: scale(1.1);
+        }
+        .info{
+            width: 340px;
+            height: 160px;
+            margin-left: 15px;
+        }
+        .info a h2{
+            background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .author{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+            height: 50px;
+            margin-top: 30px;
+        }
+        .author span img{
+            transition: all 30s;
+        }
+        .author span img:hover{
+            transform: rotate(36000deg);
+        }
+        .tags{
+            margin-top: 50px;
+            height: 250px;
+            height: auto!important;
+            background:white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px gainsboro;
+        }
+        #listArea{
+            width: 220px;
+            height: 250px;
+            margin-left:-10px;
+            overflow: hidden;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+        #listArea:hover{
+            overflow-y: scroll;
+        }
+        /*滚动条整体*/
+        #listArea::-webkit-scrollbar{
+            width: 5px;
+            height: 5px;
+        }
+        /*小方块*/
+        #listArea::-webkit-scrollbar-thumb{
+            height: 10px;
+            border-radius: 15px;
+            background: rgba(124, 110, 110, 0.5);
+        }
+        /*轨道*/
+        #listArea::-webkit-scrollbar-track{
+            border-radius: 10px;
+            background: rgba(207, 201, 201, 0.8);
+        }
+        #listArea .list-group-item{
+            margin-left: -2px;
+            width:233px;
+        }
+        #TagTop{
+            width: 234px;
+            height: 50px;
+            margin-left: -15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:gray ;
+            border-radius: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius:5px ;
+        }
+        .newInfo{
+            color: #898a8b;
+            height: 35px;
+            max-height: 35px;
+            overflow: hidden;/* 超出的文本隐藏 */
+            text-overflow: ellipsis; /* 溢出用省略号显示 */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:2;
+        }
+        .list-group a{
+            text-decoration: none;
+        }
+        .info_avatar{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 235px;
+            height: 100px;
+            background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            border-radius: 10px;
+        }
+        #info_statistics{
+            width: 220px;
+            height: 200px;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+        #info_statistics div{
+            text-align: center;
+        }
+        #infopages{
+            width: 235px;
+            height: 350px;
+            background: white;
+            box-shadow: 2px 2px 5px gray;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body class="animate__animated animate__backInUp">
-<div id="container">
-    <!--    导航栏-->
-    <header class="animate__animated animate__backInDown" th:replace="/include/nav::header" >
+<body>
+<div id="container" class="animate__animated animate__bounceInDown">
+    <!--导航-->
+    <header th:replace="/include/nav::header">
     </header>
-    <!-- 博客信息展示 -->
-    <div class="container-fluid" >
-        <!-- 主要内容展示 -->
-        <div class="row justify-content-md-center">
-            <div class="col-11">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 jumbotron box-color-white" >
-                            行1
+    <!--内容区域-->
+    <div class="container">
+        <div class="row justify-content-md-around">
+        <!--左边博客区域-->
+            <div class="row col-md-8 justify-content-md-center">
+                <div class="col-md-10" th:each="blog:${blogs}">
+                    <div class="imgs">
+                        <a th:href="@{'/blog/'+${blog.blog_id}}">
+                            <img th:src="@{${blog.blog_coverImg}}">
+                        </a>
+                    </div>
+                    <!--文章标题-->
+                    <div class="info">
+                        <a th:href="@{'/blog/'+${blog.blog_id}}" style="text-decoration: none">
+                            <h2 th:text="${blog.blog_title}">文章标题</h2>
+                        </a>
+                        <p class="newInfo" th:text="${blog.blog_content}">关于我的一些。。。。。</p>
+                        <div class="author">
+                        <span>
+                         <img th:src="@{${avatars[blogStat.index]}}" style="width: 45px;height: 45px;border-radius: 45%">
+                         <span th:text="${blog.blog_author}">伍佳伟</span>
+                        </span>
+                            <span>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span th:text="${#dates.format(blog.blog_create,'yyyy-MM-dd')}">2021-09-21</span>
+                        </span>
+                            <span>
+                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+                            <span th:text="${categories[blogStat.index]}">读书</span>
+                        </span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 jumbotron box-color-white">
-                            行1
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-11 tags">
+                    <!--列表区域-->
+                    <div id="TagTop">
+                        <span>
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                            <h4 style="display: inline-block">分类</h4>
+                            &nbsp;
+                            &nbsp;
+                            <h4 th:text="${categoryCount}"  style="display: inline-block">25</h4>
+                        </span>
+                    </div>
+                    <div id="listArea">
+                        <ol class="list-group">
+                            <a th:href="@{'/category/'+${category.category_id}}"  th:each="category:${category_list}">
+                                <li th:text="${categoryStat.index+1+'.'+category.category_name}"  class="list-group-item">你好</li>
+                            </a>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-md-11 tags">
+                    <div class="row mt-md-5" id="infopages">
+                        <!--博客总体情况信息页-->
+                        <div class="info_avatar">
+                            <!--头像区域-->
+                            <img th:src="@{/css/img/avatar/avatar.jpg}" style="width: 64px;height: 64px;border-radius: 45%">
+                        </div>
+                        <div id="info_statistics">
+                            <!--信息统计-->
+                            <div>
+                            <span>
+                                文章共
+                                <h2 style="display: inline-block">0</h2>
+                                篇
+                            </span>
+                            </div>
+                            <div>
+                           <span>
+                                文章共
+                                <h2 style="display: inline-block">0</h2>
+                                篇
+                           </span>
+                            </div>
+                            <div>
+                            <span>
+                                文章共
+                                <h2 style="display: inline-block">0</h2>
+                                篇
+                            </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 jumbotron box-color-white">
-                            行1
-                        </div>
-                    </div>
-                </div>  <!--/container-->
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- 尾部 -->
 <div th:replace="/include/footer::footer"></div>
+<script th:src="@{/js/dynamic.js}"></script>
+<script th:src="@{/js/random.js}"></script>
 </body>
 </html>

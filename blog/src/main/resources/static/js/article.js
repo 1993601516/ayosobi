@@ -30,8 +30,8 @@ $(function (){
             })
             return;
         }
-        if (tag.length > 5) {
-            swal("标签不能大于五个字", {
+        if (tag.split(',').length>10) {
+            swal("标签不能大于10个", {
                 icon: "error",
             })
             return;
@@ -62,8 +62,19 @@ $(function (){
         }
         $("#ArticleModal").modal('show');
     });
-        //ajax提交
+        let blogStatus=-1;
         $("#saveButton").click(function (){
+            /*发布方法*/
+            blogStatus=1;
+            saveBlog();
+        })
+        $('#drafts').click(function (){
+            blogStatus=0;
+            saveBlog();
+        })
+        /*fun*/
+        function saveBlog(){
+            /*获取页面值*/
             var blogId = $("#blogId").val();
             var title = $("#title").val();
             var tag = $("#tag").val();
@@ -71,34 +82,27 @@ $(function (){
             var category = $("#category").val();
             var content = contentEditor.getMarkdown();
             var blog_coverImg = $("#PictureCover")[0].src;
-            /*保存*/
+            /*对象*/
             var savedata = {
                 blog_title:title,
                 blog_tag:tag,
                 blog_category:category,
                 blog_content:content,
                 blog_url:imgUrl,
-                blog_coverImg:blog_coverImg
+                blog_coverImg:blog_coverImg,
+                blog_status:blogStatus,
             }
-            var updatedata={
+            let updatedata={
                 blog_id:blogId,
                 blog_title:title,
                 blog_tag:tag,
                 blog_category:category,
                 blog_content:content,
                 blog_url:imgUrl,
-                blog_coverImg:blog_coverImg
+                blog_coverImg:blog_coverImg,
+                blog_status:blogStatus,
             }
-            if(blogId>0){
-                $.ajax({
-                    url:"/admin/updateBlog",
-                    method:"post",
-                    data:updatedata,
-                    success:function (result){
-
-                    }
-                })
-            }
+            /*保存*/
             if(blogId==null || blogId==""){
                 $.ajax({
                     url:"/admin/saveBlog",
@@ -120,12 +124,69 @@ $(function (){
                     }
                 })
             }
-        })
+            /*更新*/
+            if(blogId!=null || blogId!=""){
+                $.ajax({
+                    url:"/admin/updateBlog",
+                    method: "post",
+                    data: updatedata,
+                    success:function(result){
+                        /*添加博客成功*/
+                        if (result.code==200){
+                            swal("更新成功",{
+                                icon:"success",
+                            }).then(function (){
+                                window.location.href="/admin/article"
+                            })
+                        }else {
+                            swal("更新失败",{
+                                icon:"error",
+                            })
+                        }
+                    }
+                })
+            }
+        }
 });
 $(function (){
     $("#randomImg").click(function (){
-        var ran =Math.floor(Math.random()*4+1);
-        $("#PictureCover").attr("src","/css/img/random/"+"random"+ran+".jpg");
+        $.get("/random",function (image){
+           if (image!=null){
+               $("#PictureCover").attr("src",image);
+           }else{
+               $("#PictureCover").attr("src","/css/img/random/random1.jpg");
+           }
+        })
         $("#PictureCover").attr("style","width:120px;height:100px");
+    })
+})
+$("#fileBtn").click(function (){
+    let formData = new FormData($("#uploadForm")[0]);
+    formData.append("file",$("#file")[0].files[0])
+    if (formData.get("file")==null){
+        swal("不能上传空图片",{
+            icon:"error"
+        })
+    }
+    $.ajax({
+        url:"/FileUpdate",
+        method: 'post',
+        data:formData,
+        processData:false,
+        contentType:false,
+        dataType:'text',
+        success:function (result){
+            /*json转对象*/
+            let data = JSON.parse(result);
+            if (data.code==200){
+                swal("上传成功",{
+                    icon:'success',
+                })
+            }else if (data.code==404){
+                swal("上传失败",{
+                    icon:'error',
+                })
+            }
+        }
     })
 })

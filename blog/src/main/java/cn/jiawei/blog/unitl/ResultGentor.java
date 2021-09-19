@@ -1,6 +1,5 @@
 package cn.jiawei.blog.unitl;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.thymeleaf.util.StringUtils;
 
 public class ResultGentor {

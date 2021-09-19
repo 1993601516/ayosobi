@@ -25,14 +25,20 @@
                     <div class="card-body">
                         <form onclick="return false">
                             <div class="form-group justi fy-content-around row" style="display: flex">
+                                <!--blogid-->
                                 <input type="hidden" id="blogId">
-                                <input class="col-sm-6 form-control" id="title" placeholder="文章标题">
-                                <input class="col-sm-6 form-control" id="tag" placeholder="文章标签">
+                                <!--文章标题-->
+                                <input class="col-sm-6 form-control" id="title" placeholder="文章标题" >
+                                <!--可以设置多个标签以','号隔开。-->
+                                <!--标签-->
+
+                                <input class="col-sm-6 form-control" id="tag" >
                             </div>
                             <div class="form-group justi fy-content-around row" style="display: flex">
+                                <!--目前没什么用-->
                                 <input type="text" id="imgUrl" placeholder="随机封面" class="form-control col-sm-6">
-                                <select id="category" class="form-control col-sm-6">
-                                    <option selected>生活</option>
+                                <select id="category"  class="form-control col-sm-6">
+                                    <option th:each="categorys:${categories}" th:value="${categorys.category_name}" th:text="${categorys.category_name}"></option>
                                 </select>
                             </div>
                             <!--引入markdown-->
@@ -40,7 +46,6 @@
                                 <textarea name="content" id="content"  style="display:none;"></textarea>
                             </div>
                             <div class="form-group ">
-                                <button  id="draft" class="btn btn-warning" style="float: right;">草稿</button>
                                 <button  id="publish" class="btn btn-info" style="float: right;margin-right: 8px">发布</button>
                             </div>
                         </form>
@@ -64,17 +69,22 @@
                         <!--显示图片-->
                         <div class="form-group">
                             <th:block>
-                                <img id="PictureCover" src="/css/img/random/random1.jpg" style="width: 60px;height: 60px">
+                                <img id="PictureCover" th:src="@{'/css/img/random/random1.jpg'}" style="width: 120px;height: 80px">
                             </th:block>
                         </div>
                         <div class="form-group">
                         <button class="btn btn-primary" id="randomImg">随机封面</button>
                         </div>
                     </form>
+                    <!--文件上传-->
+                    <form  enctype="multipart/form-data" id="uploadForm">
+                        <input type="file" id="file" name="file" accept="image/*">
+                        <button class="btn btn-warning" id="fileBtn" type="button" >上传</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                    <button type="button" id="saveButton" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-warning" id="saveButton" data-dismiss="modal">保存</button>
+                    <button type="button" id="drafts" class="btn btn-primary">草稿</button>
                 </div>
             </div>
         </div>
@@ -85,5 +95,7 @@
 <script th:src="@{/js/article.js}"></script>
 <script th:src="@{/js/rightInfo.js}"></script>
 <script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/plugs/jQuery-Tags-Input-master/src/jquery.tagsinput.js}"></script>
+<script th:src="@{/js/tags.js}"></script>
 </body>
 </html>

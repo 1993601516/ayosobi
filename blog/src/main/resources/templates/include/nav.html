@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="header" id="minister">
     <!-- 导航栏 -->
     <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -13,7 +13,7 @@
                     <a class="nav-link" th:href="@{/}"><i class="fa fa-home" aria-hidden="true">&nbsp;&nbsp;首页</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/category}"><i class="fa fa-clock-o" aria-hidden="true">&nbsp;&nbsp;分类</i></a>
+                    <a class="nav-link" th:href="@{'/category/0'}"><i class="fa fa-clock-o" aria-hidden="true">&nbsp;&nbsp;分类</i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa fa-comments-o" aria-hidden="true">&nbsp;&nbsp;留言</i></a>

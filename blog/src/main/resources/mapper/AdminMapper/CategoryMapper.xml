@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jiawei.blog.dao.adminDao.CategoryMapper">
+    <resultMap id="baseMap" type="Category">
+        <result property="category_id" column="category_id"/>
+        <result property="category_name" column="category_name"/>
+        <result property="category_sort" column="category_sort"/>
+        <result property="category_create" column="category_create"/>
+    </resultMap>
     <sql id="sqlList">
         category_id,category_sort,category_create,category_name
     </sql>
@@ -11,5 +17,15 @@
         <include refid="sqlList"></include>
         from aoyosobi_category
         where category_name=#{category_name,jdbcType=VARCHAR}
+    </select>
+    <select id="SelectListCategory" resultMap="baseMap">
+        select <include refid="sqlList"/> from aoyosobi_category
+    </select>
+    <select id="SelectPrymaryKey" resultMap="baseMap">
+        select <include refid="sqlList"/> from aoyosobi_category
+        where category_id= #{category_id,jdbcType=INTEGER}
+    </select>
+    <select id="CategoryCount" resultType="INTEGER">
+        select count(*) from aoyosobi_category
     </select>
 </mapper>
