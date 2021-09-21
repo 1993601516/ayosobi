@@ -29,4 +29,14 @@
         select <include refid="sqlList"/> from ayosobi_comment
         where comment_id = #{comment_id,jdbcType=INTEGER}
     </select>
+    <select id="CommentsPage" resultMap="baseMap">
+        select <include refid="sqlList"/> from ayosobi_comment
+        limit #{start,jdbcType=INTEGER},#{pagecount,jdbcType=INTEGER}
+    </select>
+    <select id="CommentCount" resultType="INTEGER">
+        select count(*) from ayosobi_comment;
+    </select>
+    <delete id="CommentDelete">
+        delete from ayosobi_comment  where comment_id=#{comment_id,jdbcType=INTEGER}
+    </delete>
 </mapper>

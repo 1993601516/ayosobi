@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="~{/include/header::header}"></div>
+    <title>博客管理</title>
+    <style>
+        .container{
+            justify-content: center;
+        }
+        #manager h1{
+            width: 200px;
+            height: 100px;
+        }
+        #manager h1{
+            background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .col-md-10{
+            background:white;
+            height: 600px;
+            margin-left: 480px;
+            flex-wrap: wrap;
+            flex-direction: row;
+            border-radius: 15px;
+            box-shadow: 2px 2px 10px gray;
+        }
+        .square {
+            text-align: center;
+            width: 80px;
+            height: 50px;
+            border-radius: 10px;
+            background: #62f3dd;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 2px 2px 5px gray;
+        }
+        .square h4{
+            margin-top: 15px;
+            background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .btn-info{
+            margin-top: 400px;
+            margin-left: 800px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <header th:replace="/admin/header::header"></header>
+    <!--引入头部框架-->
+    <!--大的div-->
+    <div class="container row">
+        <div id="manager"><h1>分类管理</h1></div>
+        <div class="col-md-10">
+            <!--小方块-->
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <div class="square"><h4>日常</h4></div>
+            <!--做鼠标悬停显示删除-->
+            <button class="btn btn-info">+</button>
+        </div>
+    </div>
+</div>
+
+<footer  th:replace="/admin/footer::footer"></footer>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/js/category.js}"></script>
+</body>
+</html>

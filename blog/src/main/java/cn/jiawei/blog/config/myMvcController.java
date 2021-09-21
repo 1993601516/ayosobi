@@ -29,7 +29,7 @@ public class myMvcController implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(adminInterceptor)
-                        .excludePathPatterns("/admin","/admin/login","/admin/blog");
+                        .excludePathPatterns("/admin","/admin/login");
     }
 
     @Override

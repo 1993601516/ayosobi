@@ -2,8 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/plugs/jsGrid/jsgrid.min.css" th:href="@{/plugs/jsGrid/jsgrid.min.css}">
-    <link rel="stylesheet" href="/plugs/jsGrid/jsgrid-theme.min.css" th:href="@{/plugs/jsGrid/jsgrid-theme.min.css}">
     <div th:replace="~{/include/header::header}"></div>
     <title>博客管理</title>
     <style>
@@ -11,10 +9,7 @@
             width: 105%;
             height: 620px;
             margin-left: 220px;
-            margin-top: 60px;
-        }
-        #publish{
-            margin-top: 50px;
+            margin-top: 55px;
         }
         #page{
             display: flex;
@@ -41,29 +36,23 @@
     <!--引入头部框架-->
     <!--大的div-->
     <div class="container">
-        &nbsp;
+        <!--发布按钮-->
         <div>
-            <table class="table table-bordered">
+            <table class="table table-sm table-bordered">
                 <thead class="thead-light">
                 <tr class="table" id="table">
                     <th scope="col">编号</th>
-                    <th scope="col">博客标题</th>
-                    <th scope="col">创建时间</th>
-                    <th scope="col">状态</th>
+                    <th scope="col">标签名</th>
                     <th scope="col">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="blog:${blogs}">
+                <tr th:each="tag:${tags}">
                     <!--隐藏区域-->
-                    <th scope="row"  th:text="${blog.blog_id}">1</th>
-                    <td th:text="${blog.blog_title}">我的天空</td>
-                    <td th:text="${#dates.format(blog.blog_create,'yyyy-MM-dd')}">2021-09-18</td>
-                    <td th:if="${blog.blog_status==1}"><button class="btn btn-success">已发布</button></td>
-                    <td th:if="${blog.blog_status==0}"><button class="btn btn-danger">草稿</button></td>
+                    <th th:text="${tag.tag_id}" scope="row">1</th>
+                    <td th:text="${tag.tag_name}">标签</td>
                     <td>
-                        <input type="hidden" th:value="${blog.blog_id}"/>
-                        <a th:href="@{'/admin/update/'+${blog.blog_id}}"><button class="btn btn-primary">修改</button></a>&nbsp;
+                        <input type="hidden" th:value="${tag.tag_id}"/>
                         <button onclick="dangerBtn(this)" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger">删除</button>
                     </td>
                 </tr>
@@ -80,7 +69,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            删除此博客再也找不回了，因为并没有回收站，即使这样你也要删除吗？
+                            你确定删除这个标签吗，虽然它并没有什么用
                         </div>
                         <div class="modal-footer">
                             <button id="delete" type="button" class="btn btn-primary">狠心删除</button>
@@ -92,15 +81,15 @@
             <!--分页栏-->
             <div id="page">
                 <div>
-                    <a th:href="@{'/admin/blog'}" class="btn btn-info">首页</a>
-                    <a th:if="${pagination.current!=1}" th:href="@{'/admin/blog/'+${pagination.current-1}+'/'+${pagination.recodings}}" class="btn btn-info">上一页</a>
+                    <a th:href="@{'/admin/tag'}" class="btn btn-info">首页</a>
+                    <a th:if="${pagination.current!=1}" th:href="@{'/admin/tag/'+${pagination.current-1}+'/'+${pagination.recodings}}" class="btn btn-info">上一页</a>
                 </div>
                 <div>
                     <h2 id="pageInfo"><span th:text="${pagination.current}">1</span>/<span th:text="${pagination.total}">2</span></h2>
                 </div>
                 <div>
-                    <a th:if="${pagination.current!=pagination.total}" th:href="@{'/admin/blog/'+${pagination.current+1}+'/'+${pagination.recodings}}" class="btn btn-info">下一页</a>
-                    <a th:href="@{'/admin/blog/'+${pagination.total}+'/'+${pagination.recodings}}" class="btn btn-info">尾页</a>
+                    <a th:if="${pagination.current!=pagination.total}" th:href="@{'/admin/tag/'+${pagination.current+1}+'/'+${pagination.recodings}}" class="btn btn-info">下一页</a>
+                    <a th:href="@{'/admin/tag/'+${pagination.total}+'/'+${pagination.recodings}}" class="btn btn-info">尾页</a>
                 </div>
             </div>
         </div>
@@ -110,6 +99,6 @@
 <footer  th:replace="/admin/footer::footer"></footer>
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{/plugs/sweetalert/sweetalert.min.js}"></script>
-<script th:src="@{/js/blog.js}"></script>
+<script th:src="@{/js/tag.js}"></script>
 </body>
 </html>

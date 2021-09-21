@@ -24,9 +24,18 @@
                 #{tag_create,jdbcType=TIMESTAMP})
     </insert>
     <select id="selectAll" resultMap="baseMap">
-        select * from aoyosobi_tags
+        select * from aoyosobi_tags;
     </select>
     <select id="TagsCount" resultType="INTEGER">
         select count(*) from aoyosobi_tags;
     </select>
+
+    <select id="TagPage" resultMap="baseMap">
+    select * from aoyosobi_tags limit #{start ,jdbcType=INTEGER},#{pagecount,jdbcType=INTEGER}
+    </select>
+
+    <delete id="DeleteTag">
+        delete from aoyosobi_tags where tag_id=#{tag_id,jdbcType=INTEGER}
+    </delete>
+
 </mapper>

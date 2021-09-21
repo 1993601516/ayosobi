@@ -59,4 +59,17 @@
                 </if>
             </trim>
     </insert>
+    <select id="ReplyPage" resultMap="baseMap">
+        select * from ayosobi_reply where comment_id=#{comment_id,jdbcType=INTEGER}  limit #{start,jdbcType=INTEGER},#{pagecount,jdbcType=INTEGER}
+    </select>
+    <select id="ReplyCount" resultType="INTEGER">
+        select count(*) from ayosobi_reply where  comment_id = #{comment_id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="ReplyDelete">
+        delete from ayosobi_reply where comment_id=#{comment_id,jdbcType=INTEGER}
+    </delete>
+    <delete id="ReplyDeleteByReplyId">
+        delete from ayosobi_reply where reply_id=#{reply_id,jdbcType=INTEGER}
+    </delete>
 </mapper>

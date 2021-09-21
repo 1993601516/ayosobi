@@ -22,4 +22,5 @@ public interface BlogMapper {
     /*分页查询*/
     List<Blog> selectBlogsLimit(Page page);
     int BlogUpdateByPrimaryKey(Blog blog);
+    int BlogDeleteByPrimaryKey(int blog_id);
 }

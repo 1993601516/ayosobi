@@ -1,13 +1,13 @@
-let blog_id=null;
+let tag_id=null;
 function dangerBtn(obj){
     $('#exampleModal').show();
-    blog_id=$(obj).siblings('input').val();
+    tag_id=$(obj).siblings('input').val();
 }
 $('#delete').click(function (){
     $.ajax({
-        url:'/admin/delete',
+        url:'/admin/tag/delete',
         method:'get',
-        data:{blog_id:blog_id},
+        data:{tag_id:tag_id},
         success:function (result){
             if (result.code ==200){
                 swal('删除成功',{

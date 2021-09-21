@@ -1,16 +1,20 @@
 package cn.jiawei.blog.controller.admin;
 
+import cn.jiawei.blog.dao.adminDao.BlogMapper;
 import cn.jiawei.blog.dao.adminDao.CategoryMapper;
 import cn.jiawei.blog.pojo.Blog;
 import cn.jiawei.blog.pojo.Category;
 import cn.jiawei.blog.pojo.Pagination;
 import cn.jiawei.blog.service.blogService.BlogService;
+import cn.jiawei.blog.unitl.Result;
+import cn.jiawei.blog.unitl.ResultGentor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -20,6 +24,8 @@ public class BlogController {
     BlogService blogService;
     @Autowired
     CategoryMapper categoryMapper;
+    @Autowired
+    BlogMapper blogMapper;
     @RequestMapping("/admin/blog")
     public String blog(Model model){
         /*查询首页*/
@@ -52,5 +58,15 @@ public class BlogController {
         model.addAttribute("category",category);
         model.addAttribute("categories", categories);
         return "/admin/articleUpdate";
+    }
+
+    @GetMapping("/admin/delete")
+    @ResponseBody
+    public Result blogDelete( int blog_id){
+        int i = blogMapper.BlogDeleteByPrimaryKey(blog_id);
+        if(i>0){
+            return ResultGentor.setSUCCESS_RESULT();
+        }
+        return ResultGentor.setERROR_RESULT(404, "error");
     }
 }

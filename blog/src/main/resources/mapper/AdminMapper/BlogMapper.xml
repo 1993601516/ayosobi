@@ -172,4 +172,8 @@
             </trim>
             where  blog_id = #{blog_id,jdbcType=INTEGER}
         </update>
+
+        <delete id="BlogDeleteByPrimaryKey">
+            delete from ayosobi_blog where blog_id = #{blog_id,jdbcType=INTEGER}
+        </delete>
 </mapper>

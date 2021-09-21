@@ -78,12 +78,12 @@ function insertReply(){
                 swal("回复成功",{
                     icon:"success",
                 })
-                setTimeout("window.location.reload()",3000);
+                setTimeout("window.location.reload()",1000);
             }else{
                 swal("回复失败",{
                     icon:"error",
                 })
-                setTimeout("window.location.reload()",3000);
+                setTimeout("window.location.reload()",1000);
             }
         }
     })

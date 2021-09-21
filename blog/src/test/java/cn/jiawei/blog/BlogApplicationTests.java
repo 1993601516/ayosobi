@@ -6,6 +6,7 @@ import cn.jiawei.blog.dao.blogDao.ReplyMapper;
 import cn.jiawei.blog.pojo.Blog;
 import cn.jiawei.blog.pojo.Comment;
 import cn.jiawei.blog.pojo.Reply;
+import cn.jiawei.blog.service.blogService.ReplyService;
 import cn.jiawei.blog.unitl.Page;
 import cn.jiawei.blog.unitl.PaginationUntil;
 import org.junit.jupiter.api.Test;
@@ -19,9 +20,13 @@ import java.util.List;
 @SpringBootTest
 class BlogApplicationTests {
     @Autowired
-    BlogMapper blogMapper;
+    ReplyService replyService;
+    @Autowired
+    ReplyMapper replyMapper;
     @Test
     void contextLoads() throws UnsupportedEncodingException {
-}
+        int i = replyMapper.ReplyCount(58);
+        System.out.println(i);
+    }
 
 }

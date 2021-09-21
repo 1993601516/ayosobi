@@ -31,11 +31,15 @@ public class Indexcontroller {
     TagsService tagsService;
     @GetMapping("/")
     public String index(Model model){
+        /*分页blogs*/
         List<Blog> blogs = blogService.BlogPages(1, 5,1);
+        /*查询所有blog*/
+        List<Blog> list = blogService.SelectByAll();
+        /*近期热门*/
+        ArticleVO articleVO = blogService.Instantiation(list);
         List<String> avatars = loginUserService.queryByrealname(blogs);
         Pagination pagination = blogService.ComputedPagination(1, 5);
         List<String> categories_names =categoryService.ListCategoryNames(blogs);
-        ArticleVO articleVO = blogService.Instantiation(blogs);
         TagsVO tagsVO = tagsService.TAGS_VO();
         List<Category> category_list = categoryService.CATEGORY_LIST();
         model.addAttribute("avatars", avatars);
@@ -57,7 +61,9 @@ public class Indexcontroller {
         List<String> avatars = loginUserService.queryByrealname(blogs);
         Pagination pagination = blogService.ComputedPagination(current, pageCount);
         List<String> categories_names =categoryService.ListCategoryNames(blogs);
-        ArticleVO articleVO = blogService.Instantiation(blogs);
+        /*查询所有blog*/
+        List<Blog> list = blogService.SelectByAll();
+        ArticleVO articleVO = blogService.Instantiation(list);
         TagsVO tagsVO = tagsService.TAGS_VO();
         List<Category> category_list = categoryService.CATEGORY_LIST();
         model.addAttribute("avatars", avatars);

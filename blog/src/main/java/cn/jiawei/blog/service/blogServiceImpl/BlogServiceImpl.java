@@ -8,7 +8,6 @@ import cn.jiawei.blog.pojo.Pagination;
 import cn.jiawei.blog.pojo.Tags;
 import cn.jiawei.blog.pojo.vo.ArticleVO;
 import cn.jiawei.blog.service.blogService.BlogService;
-import cn.jiawei.blog.service.blogService.LoginUserService;
 import cn.jiawei.blog.service.blogService.TagsService;
 import cn.jiawei.blog.unitl.*;
 import org.springframework.beans.BeanUtils;
@@ -96,14 +95,16 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public ArticleVO Instantiation(List<Blog> blogs) {
+    public ArticleVO Instantiation(List<Blog> blogList) {
         ArticleVO articleVO= new ArticleVO();
         List<String> blogTitles = new ArrayList<>();
         List<Integer> blogIds = new ArrayList<>();
-        articleVO.setArticleCount(blogMapper.blogCount());
-        for (Blog blog : blogs) {
-            blogTitles.add(blog.getBlog_title());
-            blogIds.add(blog.getBlog_id());
+        articleVO.setArticleCount(blogList.size()>=10?10: blogList.size());
+        /*排序后的*/
+        List<Blog> blogs = BlogSort(blogList);
+        for(int i=0;i<articleVO.getArticleCount();i++){
+            blogTitles.add(blogs.get(i).getBlog_title());
+            blogIds.add(blogs.get(i).getBlog_id());
         }
         articleVO.setBlog_id(blogIds);
         articleVO.setBlog_title(blogTitles);
@@ -182,5 +183,22 @@ public class BlogServiceImpl implements BlogService {
         TagsListByname(blog.getBlog_tag());
         return  blogMapper.BlogUpdateByPrimaryKey(blog);
     }
-
+    /*博客排序*/
+    public List<Blog> BlogSort(List<Blog> blogs){
+        /*设置容器*/
+        if(blogs.size()>=10){
+            Blog blog = new Blog();
+            for(int i=0;i<10-i-1;i++){
+                /*注意，如果blogs小于10个就报错*/
+                for(int j=i;j<9;j++){
+                    if(blogs.get(j).getBlog_view()<blogs.get(j+1).getBlog_view()){
+                        blog = blogs.get(j);
+                        blogs.set(j, blogs.get(j+1));
+                        blogs.set(j+1, blog);
+                    }
+                }
+            }
+        }
+        return blogs;
+    }
 }
